@@ -15,6 +15,7 @@ setting box sizing to border box to make sizing heights and widths easier */
 body{
     margin: 0;
     background-color: var(--background-color);
+    overflow: hidden;
 }
 
 h1{
