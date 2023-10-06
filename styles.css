@@ -1,0 +1,30 @@
+/* //selecting all the before and after elements and setting box sizing to border box to make sizing heights and widths easier */
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+/* same with the margin 0 here. */
+body{
+    margin: 0;
+    background-color: rgb(89, 26, 149);
+}
+
+h1{
+    color:  rgb(49, 189, 152);
+}
+
+.paddle{
+    position: absolute;
+    background-color: rgb(49, 189, 152);
+    width: 1vh;
+    height: 10vh;
+    top: 50vh;
+    transform: translateY(-50%)
+}
+/* 1% of the screen away from the left hand side */
+.paddle.left{
+    left: 1vw;
+}
+
+.paddle.right{
+    right: 1vw;
+}
