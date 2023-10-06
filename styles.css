@@ -1,11 +1,20 @@
-/* //selecting all the before and after elements and setting box sizing to border box to make sizing heights and widths easier */
+/* //selecting all the before and after elements and 
+setting box sizing to border box to make sizing heights and widths easier */
 *, *::after, *::before {
     box-sizing: border-box;
 }
+
+:root {
+    --hue: 11234411515;
+    --saturation: 50%;
+    --foreground-color: hsl(var(--hue), var(--saturation), 75%);
+    --background-color: hsl(var(--hue), var(--saturation), 20%);
+}
+
 /* same with the margin 0 here. */
 body{
     margin: 0;
-    background-color: rgb(89, 26, 149);
+    background-color: var(--background-color);
 }
 
 h1{
@@ -13,11 +22,13 @@ h1{
 }
 
 .paddle{
+    --position: 50;
+
     position: absolute;
-    background-color: rgb(49, 189, 152);
+    background-color: var(--foreground-color);
     width: 1vh;
     height: 10vh;
-    top: 50vh;
+    top: calc(var(--position) * 1vh);
     transform: translateY(-50%)
 }
 /* 1% of the screen away from the left hand side */
@@ -27,4 +38,42 @@ h1{
 
 .paddle.right{
     right: 1vw;
+}
+
+.ball {
+    --x: 50;
+    --y: 50;
+
+    position: absolute;
+    background-color: var(--foreground-color);
+    width: 2.5vh;
+    height: 2.5vh;
+    border-radius: 50%;
+    left: calc(var(--x) * 1vw);
+    top: calc(var(--y) * 1vh);
+    transform: translateY(-50%, -50%);
+}
+
+.score {
+    display: flex; 
+    justify-content: center;
+    font-weight: bold;
+    font-size: 7vh;
+    color: var(--foreground-color)
+}
+
+/* gets every single direct child in score; 
+this will make sure exactly HALF the screen
+is taken up by one score while the other half is taken by the other */
+.score > * {
+    flex-grow: 1; 
+    flex-basis: 0; 
+    padding: 0 2vh;
+    margin: 1vh 0;
+    opacity: .5;
+}
+
+.score > :first-child {
+ text-align: right;
+ border-right: .5vh solid var(--foreground-color);
 }
