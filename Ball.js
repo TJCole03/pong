@@ -1,5 +1,5 @@
 const INITIAL_VELOCITY = .025;
-const VELOCITY_INCREASE = .00001
+const VELOCITY_INCREASE = .000001
 
 export default class Ball {
     constructor(ballElem) {
@@ -48,7 +48,7 @@ export default class Ball {
         this.velocity = INITIAL_VELOCITY
     }
 
-    update(delta) {
+    update(delta, paddleRects) {
         this.x += this.direction.x * this.velocity * delta
         this.y += this.direction.y * this.velocity * delta
         this.velocity += VELOCITY_INCREASE * delta
@@ -57,7 +57,9 @@ export default class Ball {
         if (rect.bottom >= window.innerHeight || rect.top <= 0) {
             this.direction.y *= -1
         }
-        if (rect.right >= window.innerWidth || rect.left <= 0) {
+        //check if any of our paddle rectangles had a collision 
+        //loops through different paddle rectablges
+        if (paddleRects.some(r => isCollision(r,rect))) {
             this.direction.x *= -1
         }
     }
@@ -68,6 +70,15 @@ function randomNumberBetween(min, max) {
     //sure it scales the value to be within our range
     //and then add minumum on to make sure the minumum is the lowest number we can get
     return Math.random() * (max - min) + min
+}
+
+function isCollision(rect1, rect2) {
+    return (
+        rect1.left <= rect2.right &&
+        rect1.right >= rect2.left &&
+        rect1.top <= rect2.bottom &&
+        rect1.bottom >= rect2.top
+    )
 }
 
 //this element gets passed into the ball class so we can use it and interact with it

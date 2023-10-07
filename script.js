@@ -1,11 +1,13 @@
 //Update Loop
 import Ball from './Ball.js'
 import Paddle from './Paddle.js'
+import Bumpers from './Bumpers.js'
 
 const ball = new Ball(document.getElementById("ball"))
 const playerPaddle = new Paddle(document.getElementById("player-paddle"))
 const computerPaddle = new Paddle(document.getElementById("computer-paddle"))
-
+const playerScoreElem = document.getElementById("player-score")
+const computerScoreElem = document.getElementById("computer-score")
 //can use this inside of our update loop
 //takes in time variable for how much timne has passed since start of program
 
@@ -17,17 +19,37 @@ function update(time) {
     if (lastTime != null) {
         const delta = time - lastTime
         //Update code
-        ball.update(delta)
+        ball.update(delta, [playerPaddle.rect(), computerPaddle.rect()])
         //passing in delta because the due to how much 
         //the delta fluctuates in time
         //important to use the delta to make sure all
         //game movements are based off the delta
         computerPaddle.update(delta, ball.y)
+
+        if (isLose())  handleLose()
+        
         console.log(delta)
     }
 
     lastTime = time
     window.requestAnimationFrame(update)
+}
+
+function isLose() {
+    const rect = ball.rect()
+    //ball is "outta bounds" code
+    return rect.right >= window.innerWidth || rect.left <= 0 
+}
+
+function handleLose() {
+    const rect = ball.rect()
+    if (rect.right >= window.innerWidth) {
+        playerScoreElem.textContent = parseInt(playerScoreElem.textContent) + 1
+    } else {
+        computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1
+    }
+    ball.reset()
+    computerPaddle.reset()
 }
 
 document.addEventListener('mousemove', e => {
