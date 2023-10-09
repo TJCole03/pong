@@ -8,6 +8,7 @@ const playerPaddle = new Paddle(document.getElementById("player-paddle"))
 const computerPaddle = new Paddle(document.getElementById("computer-paddle"))
 const playerScoreElem = document.getElementById("player-score")
 const computerScoreElem = document.getElementById("computer-score")
+const bumperElem = new Bumpers(document.getElementById("bumpers"))
 //can use this inside of our update loop
 //takes in time variable for how much timne has passed since start of program
 
@@ -25,7 +26,7 @@ function update(time) {
         //important to use the delta to make sure all
         //game movements are based off the delta
         computerPaddle.update(delta, ball.y)
-
+        bumperElem.update(delta, ball.x, ball.y)
         if (isLose())  handleLose()
         
         console.log(delta)
@@ -58,5 +59,9 @@ document.addEventListener('mousemove', e => {
                             //gives value between 0 and 1, //multiply it by 100 to get the value bewtween 0 and 100 (%)
     playerPaddle.position = (e.y / window.innerHeight) * 100
 })
+
+// bumperElem.addEventListener('click', () => {
+//     console.log('clicked')
+// })
 
 window.requestAnimationFrame(update) 

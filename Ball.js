@@ -30,11 +30,11 @@ export default class Ball {
     }
 
     reset() {
-        this.x = 50; 
+        this.x = 50;
         this.y = 50;
         this.direction = { x: 0 }
         //in order to calculate our direction, we need to create a value for our x and y
-        while (    
+        while (
             Math.abs(this.direction.x) <= .2 ||
             Math.abs(this.direction.x) >= .9
         ) {
@@ -43,12 +43,12 @@ export default class Ball {
             const heading = randomNumberBetween(0, 2 * Math.PI)
             //say take in this direction and convet it into x and y position
             //this will be our UNIT VECTOR for those positions
-            this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+            this.direction = { x: Math.cos(heading), y: Math.sin(heading) }
         }
         this.velocity = INITIAL_VELOCITY
     }
 
-    update(delta, paddleRects) {
+    update(delta, paddleRects, bumperRects) {
         this.x += this.direction.x * this.velocity * delta
         this.y += this.direction.y * this.velocity * delta
         this.velocity += VELOCITY_INCREASE * delta
@@ -59,12 +59,16 @@ export default class Ball {
         }
         //check if any of our paddle rectangles had a collision 
         //loops through different paddle rectablges
-        if (paddleRects.some(r => isCollision(r,rect))) {
+        if (paddleRects.some(r => isCollision(r, rect))) {
             this.direction.x *= -1
         }
+        //checking if any bumpers had collision
+        if (bumperRects.some(isCollision(rect))) {
+            this.direction.x *= -1
+        }  
+
     }
 }
-
 function randomNumberBetween(min, max) {
     //gives us random number between 0 and 1, use max - min trick to make 
     //sure it scales the value to be within our range

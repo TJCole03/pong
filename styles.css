@@ -79,23 +79,26 @@ is taken up by one score while the other half is taken by the other */
  border-right: .5vh solid var(--foreground-color);
 }
 
-.bumpers > * {
+/* .bumpers > * {
+    --position: 30;
     display: flex;
-    color: var(--foreground-color);
+    color: white;
     height: 8vh; 
     width: 4vh;
-}
+} */
 
 .bumper.left {
-    color: var(--foreground-color);
+    background-color: white;
     height: 8vh; 
     width: 4vh;
     position: absolute;
-    right: 10vw;
+    left: 75vw;
 }
 .bumper.right {
     display: flex;
-    color: var(--foreground-color);
+    background-color: rgb(255, 0, 0);
     height: 8vh; 
     width: 4vh;
+    position: absolute;
+    left: 25vw;
 }
