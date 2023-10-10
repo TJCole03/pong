@@ -20,16 +20,16 @@ function update(time) {
     if (lastTime != null) {
         const delta = time - lastTime
         //Update code
-        ball.update(delta, [playerPaddle.rect(), computerPaddle.rect()])
+        //ball.update(delta, [playerPaddle.rect(), computerPaddle.rect()])
         //passing in delta because the due to how much 
         //the delta fluctuates in time
         //important to use the delta to make sure all
         //game movements are based off the delta
         computerPaddle.update(delta, ball.y)
-        bumperElem.update(delta, ball.x, ball.y)
+        bumperElem.update(delta, ball.y)
         if (isLose())  handleLose()
         
-        console.log(delta)
+        //console.log(delta)
     }
 
     lastTime = time
@@ -60,8 +60,9 @@ document.addEventListener('mousemove', e => {
     playerPaddle.position = (e.y / window.innerHeight) * 100
 })
 
-// bumperElem.addEventListener('click', () => {
-//     console.log('clicked')
-// })
+document.addEventListener('click', e => {
+    bumperElem.update(e.delta, e.ball)
+    console.log('clicked')
+})
 
 window.requestAnimationFrame(update) 

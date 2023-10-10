@@ -59,13 +59,19 @@ export default class Ball {
         }
         //check if any of our paddle rectangles had a collision 
         //loops through different paddle rectablges
-        if (paddleRects.some(r => isCollision(r, rect))) {
+        if (paddleRects.some(r => paddleCollide(r, rect))) {
             this.direction.x *= -1
         }
         //checking if any bumpers had collision
-        if (bumperRects.some(isCollision(rect))) {
+        if (rect.top <= bumperRects.bottom &&
+            rect.bottom >= bumperRects && 
+            rect.right <= bumperRects &&
+            rect.left >= bumperRects
+        )
+        {
+            console.log('collided')
             this.direction.x *= -1
-        }  
+        }
 
     }
 }
@@ -76,7 +82,7 @@ function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min
 }
 
-function isCollision(rect1, rect2) {
+function paddleCollide(rect1, rect2) {
     return (
         rect1.left <= rect2.right &&
         rect1.right >= rect2.left &&
@@ -84,5 +90,14 @@ function isCollision(rect1, rect2) {
         rect1.bottom >= rect2.top
     )
 }
+
+// function bumperCollide(rect1, rect2, ballElem) {
+//     return (
+//         rect1.left <= ballElem.right &&
+//         rect1.right >= ballElem.left && 
+//         rect1.top <= ballElem.bottom &&
+//         rect1.bottom >= ballElem.top
+//     )
+// }
 
 //this element gets passed into the ball class so we can use it and interact with it
