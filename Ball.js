@@ -93,7 +93,7 @@ function randomNumberBetween(min, max) {
 // }
 
 //making a single collision function that applies to both paddles and field bumpers
-function collide(rect1, rect2) {
+function collide(rect1, rect2,) {
     return (
         rect1.left <= rect2.right &&
         rect1.right >= rect2.left &&
