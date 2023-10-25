@@ -59,19 +59,20 @@ export default class Ball {
         }
         //check if any of our paddle rectangles had a collision 
         //loops through different paddle rectablges
-        if (paddleRects.some(r => paddleCollide(r, rect))) {
+        if (paddleRects.some(r => collide(r, rect))) {
             this.direction.x *= -1
         }
-        //checking if any bumpers had collision
-        if (rect.top <= bumperRects.bottom &&
-            rect.bottom >= bumperRects && 
-            rect.right <= bumperRects &&
-            rect.left >= bumperRects
-        )
-        {
-            console.log('collided')
-            this.direction.x *= -1
-        }
+    
+        // //checking if any bumpers had collision
+        // if (rect.left <= bumperRects.right &&
+        //     rect.right >= left && 
+        //     rect.top <= bumperRects &&
+        //     rect.left >= bumperRects
+        // )
+        // {
+        //     console.log('collided')
+        //     this.direction.x *= -1
+        // }
 
     }
 }
@@ -82,7 +83,17 @@ function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min
 }
 
-function paddleCollide(rect1, rect2) {
+// function paddleCollide(rect1, rect2) {
+//     return (
+//         rect1.left <= rect2.right &&
+//         rect1.right >= rect2.left &&
+//         rect1.top <= rect2.bottom &&
+//         rect1.bottom >= rect2.top
+//     )
+// }
+
+//making a single collision function that applies to both paddles and field bumpers
+function collide(rect1, rect2) {
     return (
         rect1.left <= rect2.right &&
         rect1.right >= rect2.left &&
@@ -91,7 +102,7 @@ function paddleCollide(rect1, rect2) {
     )
 }
 
-// function bumperCollide(rect1, rect2, ballElem) {
+// function bumperCollide(rect1, rect2,) {
 //     return (
 //         rect1.left <= ballElem.right &&
 //         rect1.right >= ballElem.left && 

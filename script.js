@@ -20,7 +20,7 @@ function update(time) {
     if (lastTime != null) {
         const delta = time - lastTime
         //Update code
-        //ball.update(delta, [playerPaddle.rect(), computerPaddle.rect()])
+        ball.update(delta, [playerPaddle.rect(), computerPaddle.rect(), bumperElem.rect()])
         //passing in delta because the due to how much 
         //the delta fluctuates in time
         //important to use the delta to make sure all
@@ -56,7 +56,7 @@ function handleLose() {
 document.addEventListener('mousemove', e => {
     //setting position of player paddle
     //this is a pixel value, so we need to convert to a percentage
-                            //gives value between 0 and 1, //multiply it by 100 to get the value bewtween 0 and 100 (%)
+    //gives value between 0 and 1, //multiply it by 100 to get the value bewtween 0 and 100 (%)
     playerPaddle.position = (e.y / window.innerHeight) * 100
 })
 

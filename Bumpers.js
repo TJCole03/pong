@@ -1,4 +1,4 @@
-const SPEED = .04
+const SPEED = .02
 
 
 export default class Bumpers {
