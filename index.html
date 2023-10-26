@@ -10,12 +10,12 @@
 </head>
 <body>
     <h1>That pong! Po-pong pong pong!</h1>
-    <button class="start/pause"> Start/Pause </button>
+    <button class="start-pause" id="start-pause"> Start/Pause </button>
     <div class ="score">
         <div id="player-score">0</div>
         <div id="computer-score">0</div>
     </div>
-<div class="field" id="field">
+<div class="upper-bound" id="upper-bound"></div>
     <div class ="bumpers" id="bumpers"></div>
     <div class="bumper left" id="player-bumper"></div>
     <div class="bumper right" id="computer-bumper"></div>
@@ -24,6 +24,6 @@
     <div class="ball" id="ball"></div>
     <div class="paddle left" id="player-paddle"></div>
     <div class="paddle right" id="computer-paddle"></div>
-</div>
+<div class="lower-bound" id="lower-bound"></div>    
 </body>
 </html>

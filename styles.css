@@ -103,8 +103,11 @@ is taken up by one score while the other half is taken by the other */
     left: 25vw;
 }
 
-.field {
-border: solid rgb(255, 255, 255) 1px;
-height: 100%;
-width: 100%;
+.upper-bound {
+border: solid rgb(23, 185, 93) 1px;
+}
+.lower-bound {
+border: solid rgb(23, 185, 93) 2px;
+position: relative;
+bottom: -78vh;
 }

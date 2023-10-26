@@ -63,11 +63,11 @@ export default class Ball {
             this.direction.x *= -1
         }
     
-        // //checking if any bumpers had collision
+        //checking if any bumpers had collision
         // if (rect.left <= bumperRects.right &&
-        //     rect.right >= left && 
-        //     rect.top <= bumperRects &&
-        //     rect.left >= bumperRects
+        //     rect.right >= bumperRects.left && 
+        //     rect.top <= bumperRects.bottom &&
+        //     rect.left >= bumperRects.top
         // )
         // {
         //     console.log('collided')
