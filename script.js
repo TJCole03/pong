@@ -3,6 +3,7 @@ import Ball from './Ball.js'
 import Paddle from './Paddle.js'
 import Bumpers from './Bumpers.js'
 import Button from './PlayPause.js' 
+import UpperBoundary from './UpperBoundary.js'
 
 const ball = new Ball(document.getElementById("ball"))
 const playerPaddle = new Paddle(document.getElementById("player-paddle"))
@@ -11,7 +12,7 @@ const playerScoreElem = document.getElementById("player-score")
 const computerScoreElem = document.getElementById("computer-score")
 const bumperElem = new Bumpers(document.getElementById("bumpers"))
 const pauseButton = new Button(document.getElementById("start-pause"))
-const upperBound = document.getElementById("upper-bound")
+const upperBound = new UpperBoundary(document.getElementById("upper-bound"))
 // const lowerBound = document.getElementById("lower-bound")
 //can use this inside of our update loop
 //takes in time variable for how much timne has passed since start of program
@@ -24,16 +25,15 @@ function update(time) {
     if (lastTime != null) {
         const delta = time - lastTime
         //Update code
-        // ball.update(delta, [playerPaddle.rect(), computerPaddle.rect(), bumperElem.rect(),])
+        ball.update(delta, [playerPaddle.rect(), computerPaddle.rect(), bumperElem.rect(),])
         //passing in delta because due to how much 
         //the delta fluctuates in time
         //important to use the delta to make sure all
         //game movements are based off the delta
         computerPaddle.update(delta, ball.y)
         bumperElem.update(delta, ball.y)
-        // upperBound.update(delta, ball.y)
+        upperBound.update(delta, ball.y)
         if (isLose()) handleLose()
-        // if (hitUpperBound()) handleUpperBound()
         // if (playPause()) pause()
         //console.log(delta)
     }
@@ -48,9 +48,6 @@ function isLose() {
     return rect.right >= window.innerWidth || rect.left <= 0 
 }
 
-
-
-
 function handleLose() {
     const rect = ball.rect()
     if (rect.right >= window.innerWidth) {
@@ -62,8 +59,6 @@ function handleLose() {
     computerPaddle.reset()
 }
 
-
-
 document.addEventListener('mousemove', e => {
     //setting position of player paddle
     //this is a pixel value, so we need to convert to a percentage
@@ -71,11 +66,6 @@ document.addEventListener('mousemove', e => {
     playerPaddle.position = (e.y / window.innerHeight) * 100
 })
 
-//UH OH! SCRIPT IS ONLY READING THIS EVENT LISTENER
-// document.addEventListener('click', e => {
-//     bumperElem.update(e.delta, e.ball)
-//     console.log('shit')
-// })
 
 document.addEventListener('click', e => {
     pauseButton(e.ball)

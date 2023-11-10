@@ -1,5 +1,6 @@
 const INITIAL_VELOCITY = .025;
 const VELOCITY_INCREASE = .000001
+import UpperBoundary from "./UpperBoundary.js";
 
 export default class Ball {
     constructor(ballElem) {
@@ -48,23 +49,31 @@ export default class Ball {
         this.velocity = INITIAL_VELOCITY
     }
 
-    update(delta, paddleRects, bumperRects, upperBound) {
+    update(delta, paddleRects, bumperRects, UpperBoundary) {
         this.x += this.direction.x * this.velocity * delta
         this.y += this.direction.y * this.velocity * delta
         this.velocity += VELOCITY_INCREASE * delta
         const rect = this.rect()
-
-        // 
+        const upperBound = this.UpperBoundary
         
-        if (rect.bottom >= window.innerHeight || rect.top <= 0) {
+//|| rect.top <= 0
+
+        if (rect.bottom >= window.innerHeight ) {
             this.direction.y *= -1
         }
         //check if any of our paddle rectangles had a collision 
         //loops through different paddle rectablges
-        if (paddleRects.some(r => collidePaddles(r, rect))) {
+        if (paddleRects.some(r => collide(r, rect))) {
             this.direction.x *= -1
         }
+
+        if (rect.top <= upperBound.bottom) {
+            return this.direction.x -= 1
+        }
     
+        // if (upperBound.some(r => collide(r, rect))) {
+        //     this.direction.x *= -1
+        // }
         // if (rect.top <= upperBound.innerHeight) {
         //     //hitUpperBound()
         //     this.direction.y *= -1
@@ -92,7 +101,7 @@ function randomNumberBetween(min, max) {
 
 
 //making a single collision function that applies to both paddles and field bumpers
-function collidePaddles(rect1, rect2,) {
+function collide(rect1, rect2,) {
     return (
         rect1.left <= rect2.right &&
         rect1.right >= rect2.left &&
@@ -102,21 +111,21 @@ function collidePaddles(rect1, rect2,) {
 }
 
 
-function collideBumpers(rect1, rect2) {
+// function collideBumpers(rect1, rect2) {
     
-}
+// }
 
-function hitUpperBound() {
-    const rect = ball.rect()
-    return rect.top <= upperBound.innerHeight 
-}
-function handleUpperBound() {
-    const rect1 = upperBound.rect()
-    const rect2 = ball.rect()
-    if (rect2.top >= rect1.innerHeight) {
-        rect2.direction.y *= -1
-    }
-}
+// function hitUpperBound() {
+//     const rect = ball.rect()
+//     return rect.top <= upperBound.innerHeight 
+// }
+// function handleUpperBound() {
+//     const rect1 = upperBound.rect()
+//     const rect2 = ball.rect()
+//     if (rect2.top >= rect1.innerHeight) {
+//         rect2.direction.y *= -1
+//     }
+// }
 
 // function bumperCollide(rect1, rect2,) {
 //     return (
